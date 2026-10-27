@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lycée Technique d'Abidjan</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bleu:#1a3a6b;--orange:#e67e22;--gris:#f5f7fa;--texte:#2d3748}
+body{font-family:'Segoe UI',sans-serif;color:var(--texte);line-height:1.6}
+a{text-decoration:none;color:inherit}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+
+/* HEADER */
+header{position:fixed;top:0;left:0;right:0;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.1);z-index:1000}
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;max-width:1100px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:45px;height:45px;background:var(--bleu);color:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800}
+.logo h1{font-size:16px;color:var(--bleu)}
+.logo p{font-size:11px;color:var(--orange);font-weight:600;text-transform:uppercase}
+.nav-menu{display:flex;gap:5px;list-style:none;align-items:center}
+.nav-menu a{padding:9px 14px;font-size:14px;font-weight:500;border-radius:6px;transition:.3s}
+.nav-menu a:hover,.nav-menu a.active{background:var(--gris);color:var(--bleu)}
+.nav-menu .btn-nav{background:var(--orange);color:#fff}
+.nav-menu .btn-nav:hover{background:#d35400;color:#fff}
+.menu-toggle{display:none;background:none;border:none;font-size:24px;color:var(--bleu);cursor:pointer}
+
+/* HERO */
+.hero{margin-top:70px;min-height:80vh;background:linear-gradient(135deg,rgba(26,58,107,.95),rgba(15,36,71,.9));display:flex;align-items:center;padding:60px 20px;color:#fff}
+.hero h1{font-size:clamp(28px,5vw,52px);margin-bottom:15px;line-height:1.2}
+.hero h1 span{color:var(--orange)}
+.hero p{font-size:17px;margin-bottom:30px;opacity:.95;max-width:650px}
+.badge{display:inline-block;background:rgba(230,126,34,.2);border:2px solid var(--orange);color:var(--orange);padding:6px 18px;border-radius:30px;font-size:12px;font-weight:600;letter-spacing:1px;margin-bottom:20px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{padding:13px 26px;border-radius:8px;font-weight:600;font-size:15px;cursor:pointer;transition:.3s;border:2px solid transparent;display:inline-block}
+.btn-primary{background:var(--orange);color:#fff}
+.btn-primary:hover{background:#d35400;transform:translateY(-3px)}
+.btn-outline{background:transparent;color:#fff;border-color:#fff}
+.btn-outline:hover{background:#fff;color:var(--bleu)}
+
+/* STATS */
+.stats{background:#fff;padding:40px 0;margin-top:-40px;position:relative;z-index:5}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;background:#fff;padding:30px;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,.1);text-align:center}
+.stat h3{font-size:36px;color:var(--bleu);font-weight:800}
+.stat h3 span{color:var(--orange)}
+.stat p{font-size:12px;color:#666;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+
+/* SECTIONS */
+section{padding:70px 0}
+.section-head{text-align:center;max-width:650px;margin:0 auto 50px}
+.section-head .badge{background:rgba(230,126,34,.1);border:none;color:var(--orange)}
+.section-head h2{font-size:clamp(26px,4vw,38px);color:var(--bleu);margin-bottom:12px}
+.section-head p{color:#666}
+
+/* FORMATIONS */
+.formations{background:var(--gris)}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}
+.card{background:#fff;border-radius:14px;padding:30px 22px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,.08);transition:.3s;border-top:4px solid transparent}
+.card:hover{transform:translateY(-8px);border-top-color:var(--orange);box-shadow:0 12px 30px rgba(0,0,0,.15)}
+.card .icon{width:70px;height:70px;margin:0 auto 18px;background:linear-gradient(135deg,rgba(26,58,107,.1),rgba(230,126,34,.1));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px}
+.card h3{font-size:18px;color:var(--bleu);margin-bottom:10px}
+.card p{font-size:14px;color:#666}
+.duration{display:inline-block;margin-top:12px;font-size:12px;color:var(--orange);font-weight:600;background:rgba(230,126,34,.1);padding:4px 12px;border-radius:20px}
+
+/* ACTUALITÉS */
+.actu-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.08);transition:.3s}
+.actu-card:hover{transform:translateY(-8px);box-shadow:0 12px 30px rgba(0,0,0,.15)}
+.actu-img{height:170px;background:linear-gradient(135deg,var(--bleu),#2c5282);display:flex;align-items:center;justify-content:center;font-size:60px;color:rgba(255,255,255,.4)}
+.actu-body{padding:22px}
+.actu-body .cat{font-size:12px;color:var(--orange);font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.actu-body h3{font-size:17px;color:var(--bleu);margin:8px 0 10px;line-height:1.4}
+.actu-body p{font-size:14px;color:#666;margin-bottom:15px}
+.actu-body a{color:var(--orange);font-weight:600;font-size:14px}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.info-item{display:flex;gap:15px;background:#fff;padding:18px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.08);margin-bottom:15px}
+.info-item .ico{width:45px;height:45px;min-width:45px;background:var(--bleu);color:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.info-item h4{font-size:14px;color:var(--bleu);margin-bottom:3px}
+.info-item p{font-size:13px;color:#666}
+form{background:#fff;padding:30px;border-radius:14px;box-shadow:0 8px 25px rgba(0,0,0,.1)}
+input,textarea,select{width:100%;padding:12px 14px;border:2px solid #e2e8f0;border-radius:8px;font-family:inherit;font-size:14px;background:var(--gris);margin-bottom:15px;transition:.3s}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--orange);background:#fff}
+textarea{resize:vertical;min-height:100px}
+form button{width:100%;justify-content:center}
+
+/* CTA */
+.cta{background:linear-gradient(135deg,var(--bleu),#0f2447);color:#fff;text-align:center;padding:70px 0}
+.cta h2{font-size:clamp(26px,4vw,38px);margin-bottom:15px}
+.cta p{opacity:.9;max-width:600px;margin:0 auto 30px}
+
+/* FOOTER */
+footer{background:#0f2447;color:rgba(255,255,255,.8);padding:50px 0 0}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-bottom:35px}
+.footer-grid h4{color:#fff;font-size:15px;margin-bottom:18px;position:relative;padding-bottom:10px}
+.footer-grid h4::after{content:'';position:absolute;bottom:0;left:0;width:35px;height:3px;background:var(--orange);border-radius:2px}
+.footer-grid ul{list-style:none}
+.footer-grid ul li{margin-bottom:8px}
+.footer-grid ul a{font-size:13px;transition:.3s}
+.footer-grid ul a:hover{color:var(--orange)}
+.footer-brand p{font-size:13px;margin-top:15px}
+.footer-brand .logo h1{color:#fff}
+.footer-social{display:flex;gap:10px;margin-top:15px}
+.footer-social a{width:36px;height:36px;background:rgba(255,255,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;transition:.3s}
+.footer-social a:hover{background:var(--orange)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding:20px 0;text-align:center;font-size:13px}
+
+/* BACK TOP */
+#top{position:fixed;bottom:25px;right:25px;width:48px;height:48px;background:var(--orange);color:#fff;border:none;border-radius:50%;font-size:20px;cursor:pointer;opacity:0;visibility:hidden;transition:.3s;box-shadow:0 5px 20px rgba(0,0,0,.2);z-index:999}
+#top.show{opacity:1;visibility:visible}
+#top:hover{background:#d35400}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+.menu-toggle{display:block}
+.nav-menu{position:fixed;top:70px;right:-100%;width:260px;height:100vh;background:#fff;flex-direction:column;align-items:stretch;padding:20px;gap:5px;transition:right .4s;box-shadow:-5px 0 20px rgba(0,0,0,.1)}
+.nav-menu.active{right:0}
+.nav-menu a{padding:14px;border-bottom:1px solid #eee}
+.stats-grid{grid-template-columns:repeat(2,1fr)}
+.stat h3{font-size:28px}
+.contact-grid,.footer-grid{grid-template-columns:1fr;gap:30px}
+section{padding:50px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="navbar">
+    <a href="#" class="logo">
+      <div class="logo-icon">LTA</div>
+      <div>
+        <h1>Lycée Technique d'Abidjan</h1>
+        <p>Excellence & Savoir-Faire</p>
+      </div>
+    </a>
+    <button class="menu-toggle" id="toggle">☰</button>
+    <ul class="nav-menu" id="menu">
+      <li><a href="#accueil" class="active">Accueil</a></li>
+      <li><a href="#formations">Formations</a></li>
+      <li><a href="#actualites">Actualités</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#contact" class="btn-nav">Inscription</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="accueil" style="padding-top:100px">
+  <div class="container">
+    <span class="badge">🎓 Depuis 1958</span>
+    <h1>Former les <span>Techniciens</span> de Demain</h1>
+    <p>Le Lycée Technique d'Abidjan forme depuis plus de 65 ans des techniciens d'excellence en génie civil, électrotechnique, mécanique et bien plus.</p>
+    <div class="btns">
+      <a href="#formations" class="btn btn-primary">Nos formations →</a>
+      <a href="#contact" class="btn btn-outline">Nous contacter</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat"><h3>2500<span>+</span></h3><p>Élèves</p></div>
+      <div class="stat"><h3>15</h3><p>Filières</p></div>
+      <div class="stat"><h3>98<span>%</span></h3><p>Réussite</p></div>
+      <div class="stat"><h3>65<span>+</span></h3><p>Ans</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATIONS -->
+<section class="formations" id="formations">
+  <div class="container">
+    <div class="section-head">
+      <span class="badge">Nos Formations</span>
+      <h2>Des Filières d'Avenir</h2>
+      <p>Des formations techniques conçues pour le marché de l'emploi.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="icon">🏗️</div>
+        <h3>Génie Civil</h3>
+        <p>Bâtiment, travaux publics et construction d'infrastructures modernes.</p>
+        <span class="duration">3 ans • BT</span>
+      </div>
+      <div class="card">
+        <div class="icon">⚡</div>
+        <h3>Électrotechnique</h3>
+        <p>Installations électriques, automatismes et systèmes énergétiques.</p>
+        <span class="duration">3 ans • BT</span>
+      </div>
+      <div class="card">
+        <div class="icon">🚗</div>
+        <h3>Mécanique Auto</h3>
+        <p>Diagnostic, entretien et réparation des véhicules modernes.</p>
+        <span class="duration">3 ans • BT</span>
+      </div>
+      <div class="card">
+        <div class="icon">❄️</div>
+        <h3>Froid & Climatisation</h3>
+        <p>Réfrigération, climatisation et chaîne du froid industriel.</p>
+        <span class="duration">3 ans • BT</span>
+      </div>
+      <div class="card">
+        <div class="icon">🔧</div>
+        <h3>Construction Métallique</h3>
+        <p>Soudure, chaudronnerie et assemblage de structures métalliques.</p>
+        <span class="duration">3 ans • BT</span>
+      </div>
+      <div class="card">
+        <div class="icon">📐</div>
+        <h3>Topographie</h3>
+        <p>Mesure des terrains, cartographie et travaux de génie civil.</p>
+        <span class="duration">3 ans • BT</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTUALITÉS -->
+<section id="actualites">
+  <div class="container">
+    <div class="section-head">
+      <span class="badge">Actualités</span>
+      <h2>La Vie du Lycée</h2>
+      <p>Suivez les dernières nouvelles de notre établissement.</p>
+    </div>
+    <div class="grid-3">
+      <article class="actu-card">
+        <div class="actu-img">🏆</div>
+        <div class="actu-body">
+          <span class="cat">Distinction</span>
+          <h3>Victoire au Concours National de Robotique</h3>
+          <p>Nos élèves de la filière Électrotechnique se sont illustrés à Yamoussoukro.</p>
+          <a href="#">Lire la suite →</a>
+        </div>
+      </article>
+      <article class="actu-card">
+        <div class="actu-img">🤝</div>
+        <div class="actu-body">
+          <span class="cat">Partenariat</span>
+          <h3>Nouvelle convention avec Groupe Industriel CI</h3>
+          <p>Accord pour l'accueil de stagiaires et l'insertion professionnelle.</p>
+          <a href="#">Lire la suite →</a>
+        </div>
+      </article>
+      <article class="actu-card">
+        <div class="actu-img">🎓</div>
+        <div class="actu-body">
+          <span class="cat">Événement</span>
+          <h3>Remise des diplômes Promotion 2024</h3>
+          <p>Plus de 400 lauréats ont reçu leur diplôme cette année.</p>
+          <a href="#">Lire la suite →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <h2>Prêt à Rejoindre l'Excellence ?</h2>
+    <p>Les inscriptions pour l'année 2024-2025 sont ouvertes. Réservez votre place dès maintenant.</p>
+    <a href="#contact" class="btn btn-primary">S'inscrire →</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--gris)">
+  <div class="container">
+    <div class="section-head">
+      <span class="badge">Contact</span>
+      <h2>Prenez Contact avec Nous</h2>
+      <p>Notre équipe est à votre disposition.</p>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="info-item">
+          <div class="ico">📍</div>
+          <div><h4>Adresse</h4><p>Cocody, Abidjan, Côte d'Ivoire</p></div>
+        </div>
+        <div class="info-item">
+          <div class="ico">📞</div>
+          <div><h4>Téléphone</h4><p>+225 27 22 44 XX XX</p></div>
+        </div>
+        <div class="info-item">
+          <div class="ico">✉️</div>
+          <div><h4>Email</h4><p>contact@lta-abidjan.ci</p></div>
+        </div>
+        <div class="info-item">
+          <div class="ico">🕐</div>
+          <div><h4>Horaires</h4><p>Lun-Ven : 7h30 - 17h00</p></div>
+        </div>
+      </div>
+      <form id="form">
+        <input type="text" placeholder="Nom complet *" required>
+        <input type="email" placeholder="Email *" required>
+        <select required>
+          <option value="">-- Choisir un sujet --</option>
+          <option>Demande d'inscription</option>
+          <option>Information formations</option>
+          <option>Partenariat</option>
+          <option>Autre</option>
+        </select>
+        <textarea placeholder="Votre message *" required></textarea>
+        <button type="submit" class="btn btn-primary">Envoyer →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon">LTA</div>
+          <div><h1>Lycée Technique d'Abidjan</h1><p style="color:var(--orange)">Excellence & Savoir-Faire</p></div>
+        </div>
+        <p>Former les techniciens de demain depuis 1958. Un établissement d'excellence en Côte d'Ivoire.</p>
+        <div class="footer-social">
+          <a href="#">📘</a><a href="#">🐦</a><a href="#">📷</a><a href="#">💼</a>
+        </div>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#accueil">→ Accueil</a></li>
+          <li><a href="#formations">→ Formations</a></li>
+          <li><a href="#actualites">→ Actualités</a></li>
+          <li><a href="#contact">→ Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>📍 Cocody, Abidjan</li>
+          <li>📞 +225 27 22 44 XX XX</li>
+          <li>✉️ contact@lta.ci</li>
+          <li>🕐 Lun-Ven : 7h30-17h</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2024 Lycée Technique d'Abidjan — Tous droits réservés
+    </div>
+  </div>
+</footer>
+
+<button id="top">↑</button>
+
+<script>
+// Menu mobile
+const toggle=document.getElementById('toggle'),menu=document.getElementById('menu');
+toggle.onclick=()=>{menu.classList.toggle('active');toggle.textContent=menu.classList.contains('active')?'✕':'☰'};
+document.querySelectorAll('.nav-menu a').forEach(a=>a.onclick=()=>{menu.classList.remove('active');toggle.textContent='☰'});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.onclick=function(e){
+    const id=this.getAttribute('href');
+    if(id==='#')return;
+    const t=document.querySelector(id);
+    if(t){e.preventDefault();window.scrollTo({top:t.offsetTop-65,behavior:'smooth'})}
+  }
+});
+
+// Lien actif au scroll
+const links=document.querySelectorAll('.nav-menu a[href^="#"]');
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
+  document.querySelectorAll('section[id]').forEach(s=>{
+    if(y>=s.offsetTop-120 && y<s.offsetTop+s.offsetHeight){
+      links.forEach(l=>l.classList.remove('active'));
+      const cur=document.querySelector(`.nav-menu a[href="#${s.id}"]`);
+      if(cur)cur.classList.add('active');
+    }
+  });
+  // Back to top
+  document.getElementById('top').classList.toggle('show',y>400);
+});
+
+// Back to top
+document.getElementById('top').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+
+// Formulaire
+document.getElementById('form').onsubmit=e=>{
+  e.preventDefault();
+  alert('✅ Merci ! Votre message a été envoyé.');
+  e.target.reset();
+};
+</script>
+
+</body>
+</html>
